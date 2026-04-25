@@ -36,11 +36,10 @@ export default function DashboardPage() {
 
   const fetchPatients = useCallback(async () => {
     const { data: visits } = await supabase
-      .from('visits')
-      .select('id, patient_id, created_at, patients(id, name, phone, dob)')
-      .eq('status', 'active')
-      .order('created_at', { ascending: false });
-
+  .from('visits')
+  .select('id, patient_id, created_at, patients(id, name, phone, dob, deleted_at)')
+  .eq('status', 'active')
+  .order('created_at', { ascending: false });
     if (!visits) {
       setIsLoading(false);
       return;
@@ -50,8 +49,8 @@ export default function DashboardPage() {
     const allAlerts: string[] = [];
 
     for (const visit of visits) {
-      const patient = visit.patients as any;
-      if (!patient) continue;
+     const patient = visit.patients as any;
+if (!patient || patient.deleted_at) continue;
 
       const { data: vitalsData } = await supabase
         .from('vitals')

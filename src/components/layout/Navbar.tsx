@@ -1,5 +1,6 @@
 'use client';
 
+
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
@@ -22,7 +23,8 @@ import {
   LogOut,
   User,
   ChevronDown,
-} from 'lucide-react';
+  Trash2,
+} from 'lucide-react';;
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 
@@ -30,6 +32,7 @@ const navLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/patient/add', label: 'New Patient', icon: UserPlus },
   { href: '/scan', label: 'Scan QR', icon: ScanLine },
+  { href: '/recycle-bin', label: 'Recycle Bin', icon: Trash2 },
 ];
 
 export default function Navbar() {
