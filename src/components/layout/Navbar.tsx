@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import ThemeToggle from '@/components/layout/ThemeToggle';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -70,6 +71,8 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
+        {/* Theme Toggle */}
+         <ThemeToggle />
 
         {/* User Menu */}
         <DropdownMenu>

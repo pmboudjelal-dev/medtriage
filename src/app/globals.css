@@ -128,3 +128,65 @@
     @apply font-sans;
   }
 }
+/* Dark mode colors */
+.dark {
+  --background: 222 47% 11%;
+  --foreground: 210 40% 98%;
+  --card: 222 47% 13%;
+  --card-foreground: 210 40% 98%;
+  --border: 217 33% 25%;
+  --input: 217 33% 25%;
+  --primary: 210 100% 52%;
+  --primary-foreground: 0 0% 100%;
+  --muted: 217 33% 20%;
+  --muted-foreground: 215 20% 65%;
+}
+
+/* Dark mode overrides */
+.dark .bg-slate-50 {
+  background-color: rgb(15 23 42);
+}
+
+.dark .bg-white {
+  background-color: rgb(30 41 59);
+}
+
+.dark .border-slate-200 {
+  border-color: rgb(51 65 85);
+}
+
+.dark .text-slate-800 {
+  color: rgb(226 232 240);
+}
+
+.dark .text-slate-700 {
+  color: rgb(203 213 225);
+}
+
+.dark .text-slate-600 {
+  color: rgb(148 163 184);
+}
+
+.dark .text-slate-500 {
+  color: rgb(100 116 139);
+}
+
+.dark .text-slate-400 {
+  color: rgb(71 85 105);
+}
+
+.dark .bg-slate-100 {
+  background-color: rgb(30 41 59);
+}
+
+.dark .hover\:bg-slate-100:hover {
+  background-color: rgb(30 41 59);
+}
+
+.dark .bg-blue-50 {
+  background-color: rgb(23 37 84);
+}
+
+.dark .shadow-sm {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
