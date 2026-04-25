@@ -61,4 +61,42 @@ export async function getPatient(id: string) {
   }
 
   return { data };
+}export async function dischargePatient(visitId: string, patientId: string) {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Not authenticated' };
+
+  const { error } = await supabase
+    .from('visits')
+    .update({
+      status: 'discharged',
+      discharged_at: new Date().toISOString(),
+    })
+    .eq('id', visitId);
+
+  if (error) return { error: error.message };
+
+  revalidatePath('/dashboard');
+  revalidatePath(`/patient/${patientId}`);
+
+  return { success: true };
+}
+
+export async function deletePatient(patientId: string) {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Not authenticated' };
+
+  const { error } = await supabase
+    .from('patients')
+    .delete()
+    .eq('id', patientId);
+
+  if (error) return { error: error.message };
+
+  revalidatePath('/dashboard');
+
+  return { success: true };
 }
