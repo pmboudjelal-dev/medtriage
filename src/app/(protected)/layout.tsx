@@ -1,7 +1,7 @@
-export const dynamic = 'force-dynamic';
-
 import ProtectedRoute from '@/components/layout/ProtectedRoute';
 import Navbar from '@/components/layout/Navbar';
+
+export const dynamic = 'force-dynamic';
 
 export default function ProtectedLayout({
   children,
