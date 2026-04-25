@@ -1,5 +1,6 @@
 'use client';
 
+import StatsSummary from '@/components/dashboard/StatsSummary';
 import { useEffect, useState, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import PatientCard from '@/components/patient/PatientCard';
@@ -199,8 +200,11 @@ export default function DashboardPage() {
             </div>
           )}
 
-        </div>
+       </div>
       )}
+
+      {/* إحصائيات */}
+      <StatsSummary />
 
     </div>
   );
