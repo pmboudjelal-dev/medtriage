@@ -1,0 +1,64 @@
+'use server';
+
+import { createClient } from '@/lib/supabase/server';
+import { revalidatePath } from 'next/cache';
+
+export async function createPatient(formData: {
+  name: string;
+  dob: string;
+  phone: string;
+}) {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return { error: 'Not authenticated' };
+  }
+
+  const patientId = crypto.randomUUID();
+
+  const { error: patientError } = await supabase
+    .from('patients')
+    .insert({
+      id: patientId,
+      name: formData.name,
+      dob: formData.dob,
+      phone: formData.phone,
+      qr_code_hash: patientId,
+    });
+
+  if (patientError) {
+    return { error: patientError.message };
+  }
+
+  const { error: visitError } = await supabase
+    .from('visits')
+    .insert({
+      patient_id: patientId,
+      status: 'active',
+    });
+
+  if (visitError) {
+    return { error: visitError.message };
+  }
+
+  revalidatePath('/dashboard');
+
+  return { success: true, patientId };
+}
+
+export async function getPatient(id: string) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('patients')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { data };
+}
